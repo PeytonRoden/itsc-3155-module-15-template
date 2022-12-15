@@ -1,17 +1,18 @@
 from flask.testing import FlaskClient
 from src.models import Movie, db
 from app import app
+from tests.utils import refresh_db, create_movie
 
 
 def test_get_all_movies(test_app: FlaskClient):
-    with app.app_context():
-        test_movie = Movie(title = "the dark knight", director ="Chris", rating = 5)
-        db.session.add(test_movie)
-        db.session.commit()
+    #set up
+    refresh_db()
+    test_movie = create_movie()
 
+    #run action
+    res = test_app.get('/movies')
+    page_data: str = res.data.decode()
 
-        res = test_app.get('/movies')
-        page_data = res.data
-
-        assert res.status_code == 200
-        assert b'<td>Chris</td>' in page_data
+    #assserts
+    assert res.status_code == 200
+    assert b'<td>Chris</td>' in page_data
