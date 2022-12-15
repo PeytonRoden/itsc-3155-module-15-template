@@ -10,7 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL' , default = 'postgresql://postgres:password@localhost:5432/Cinema')
 db.init_app(app)
 
 
