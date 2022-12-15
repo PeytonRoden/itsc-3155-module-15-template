@@ -15,4 +15,4 @@ def test_get_all_movies(test_app: FlaskClient):
 
     #assserts
     assert res.status_code == 200
-    assert b'<td>Chris</td>' in page_data
+    assert f'<td>Christopher Nolan</td>' in page_data
